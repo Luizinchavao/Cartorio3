@@ -1,11 +1,61 @@
 #include <stdio.h>  //biblioteca de texto de comunicação com usuário
 #include <stdlib.h>  //biblioteca de alocação de espaço em memória
 #include <locale.h> // biblioteca de alocações de texto por região
+#include <string.h> //biblioteca responsável por cuidar das string
 
 int registro()
 
-{	printf("Você escolheu o registro de nomes!\n");
-	system("pause");
+{   char arquivo[40]; //Criando uma string entre colchetes[] cpf do número 40
+	char cpf[40];
+    char nome[40];
+    char sobrenome[40];
+    char cargo[40];
+    
+    printf("Digite o CPF a ser cadastrado: ");
+    scanf("%s", cpf); ///Armazenando  a escolha do usuario/Armazenando na string cpf
+    
+    strcpy(arquivo, cpf); // Responsável por copiar os valores das sting
+    
+    FILE *file;// Cria o arquivo no banco de dados do computador
+    file= fopen(arquivo, "w");// Cria o arquivo do tipo white na pasta
+    fprintf(file, cpf);// Salvo o valor da variável
+    fclose(file);// Fecha o arquivo
+    
+    file= fopen(arquivo, "a");
+    fprintf(file,",");
+    fclose(file);
+    
+    printf("Digite o nome a ser cadastrado: ");
+    scanf("%s", nome);// Salvar na string o que usuario digitou
+    
+    file= fopen(arquivo, "a");
+    fprintf(file, nome);
+    fclose(file);
+    
+    file= fopen(arquivo, "a");
+    fprintf(file,",");
+    fclose(file);
+    
+    printf("Digite o sobrenome a ser cadastrado: ");
+    scanf("%s", sobrenome);
+    
+    file= fopen(arquivo,"a");
+    fprintf(file, sobrenome);
+    fclose(file);
+    
+    file= fopen(arquivo, "a");
+    fprintf(file,",");
+    fclose(file);
+    
+    printf("Digite o cargo a ser cadastrado: ");
+    scanf("%s", cargo);
+    
+    file= fopen(arquivo,"a");
+    fprintf(file, cargo);
+    fclose(file);
+	
+	system("pause");// Não precisamos colocar vírgula pq ja é o final
+		     
 }
 
 int consulta() // nao tem ; pq estamos criando uma funçao
