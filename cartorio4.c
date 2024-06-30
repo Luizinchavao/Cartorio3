@@ -5,36 +5,36 @@
 
 int registro()
 
-{   char arquivo[40]; //Criando uma string entre colchetes[] cpf do número 40
+{   char arquivo[40]; // Char estamos criando o conjunto de banco de dados [40] significa que possui a quantidade máxima de caracteres da variavel(String)
 	char cpf[40];
     char nome[40];
     char sobrenome[40];
     char cargo[40];
-    
+     
     printf("Digite o CPF a ser cadastrado: ");
-    scanf("%s", cpf); ///Armazenando  a escolha do usuario/Armazenando na string cpf
+    scanf("%s", cpf);            // Armazena a variavel, %s dentro da string  cpf
     
-    strcpy(arquivo, cpf); // Responsável por copiar os valores das sting
+    strcpy(arquivo, cpf);       // Responsável por copiar os valores das sting
     
-    FILE *file;// Cria o arquivo no banco de dados do computador
-    file= fopen(arquivo, "w");// Cria o arquivo do tipo white na pasta
-    fprintf(file, cpf);// Salvo o valor da variável
-    fclose(file);// Fecha o arquivo
+    FILE *file;                 // Cria o arquivo no banco de dados do computador
+    file= fopen(arquivo, "w");  // Abre o arquivo e "w" write para escrever a informaçao 
+    fprintf(file, cpf);         // Salvo o valor da variável cpf
+    fclose(file);               // Fecha o arquivo
     
-    file= fopen(arquivo, "a");
-    fprintf(file,",");
-    fclose(file);
+    file= fopen(arquivo, "a");  // Acessando o arquivo e "a" para atualizar a informaçao
+    fprintf(file,",");          // Salva o espaço para separar a variavel por linha
+    fclose(file);               // Fecha o arquivo atualizado
     
     printf("Digite o nome a ser cadastrado: ");
-    scanf("%s", nome);// Salvar na string o que usuario digitou
+    scanf("%s", nome);         // Salvar na string o que usuario digitou
     
-    file= fopen(arquivo, "a");
-    fprintf(file, nome);
-    fclose(file);
+    file= fopen(arquivo, "a"); // Acessando o arquivo e "a" para atualizar a informaçao
+    fprintf(file, nome);       // Salva o espaço para separar a variavel por linha
+    fclose(file);              // Fecha o arquivo atualizado
     
-    file= fopen(arquivo, "a");
-    fprintf(file,",");
-    fclose(file);
+    file= fopen(arquivo, "a"); // Acessando o arquivo e "a" para atualizar a informaçao
+    fprintf(file,",");         // Salva o espaço para separar a variavel por linha
+    fclose(file);              // Fecha o arquivo atualizado
     
     printf("Digite o sobrenome a ser cadastrado: ");
     scanf("%s", sobrenome);
@@ -58,10 +58,49 @@ int registro()
 		     
 }
 
-int consulta() // nao tem ; pq estamos criando uma funçao
+int consulta()          // Nao tem ; pq estamos criando uma funçao
+ {
+	
+	setlocale(LC_ALL, "portuguese"); //Definindo a linguagem que podemos usar acentos  
+	
+	char cpf[40];
+	char conteudo[200];
+	char *token;
+	
+    printf("Digite o CPF a ser consultado: ");
+    scanf("%s", cpf);//Armazenando a variavel "cpf" utilizando a funçao string %s
+   
+    FILE *file;
+    file = fopen(cpf,"r");// Abre o arquivo cpf  e "r" read = ler a informaçao
+	  
+    
+    if(file == NULL)            // Se a informaçao nao existir fala isso para o usuario / NULL= Isso é uma condiçao nao tem ; ponto e virgula
+    {	
+        printf("Não foi possível abrir o arquivo, não localizado!.\n ");
+    }
+	while(fgets(conteudo, 200, file) != NULL)// Validaçao de nulo  "While" Enquanto tiver conteúdo dentro desse arquivo ela vai armazenando dentro da variavel conteudo
+     {               
+	
+    	printf("\n Essas são as informações do usuário: \n "); //Informaçao a aparecer antes dos dados
+    	
+        token = strtok(conteudo, ",");     //Variavel utilizada para dividir a string em linhas
+	    printf("CPF: %s\n", token);        //Informaçao a aparecer antes dos dados do CPF
+     	
+     	token = strtok(NULL, ",");        //Variavel utilizada para dividir a string em linhas
+     	printf("Nome: %s\n" , token);     //Informaçao a aparecer antes dos dados do nome
+     	
+     	token = strtok(NULL, ",");        //Variavel utilizada para dividir a string em linhas
+     	printf("Sobrenome: %s\n" , token);//Informaçao a aparecer antes dos dados do sobrenome
+     	
+     	token = strtok(NULL, ",");        //Variavel utilizada para dividir a string em linhas
+     	printf("cargo: %s\n" ,token);     //Informaçao a aparecer antes dos dados do cargo
 
-{   printf("Você escolheu consultar os nomes!\n");
-	system("pause");
+     }
+     
+     
+        printf("\n");     // Comando utilizado para pular uma linha no final
+		                    
+        system("pause");
 }
 
 int deletar()
@@ -73,7 +112,7 @@ int deletar()
 
 int main ()  
 
-    {
+  {
     int opcao=0; //Definindo variáveis que equivale a 0. // 1 igual(=) esta atribuindo o valor
     int laco=1;
     
@@ -116,6 +155,6 @@ int main ()
 			
         }//Fim da seleçao
     }
-}
+ }
       
          
